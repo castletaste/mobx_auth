@@ -1,3 +1,4 @@
+import 'package:bitsgap/src/extensions/notify_page_view.dart';
 import 'package:bitsgap/src/pages/auth/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +29,7 @@ class AuthPage extends StatelessWidget {
     ///max width of the content
     const maxWidth = 420.0;
 
-    final c = PageController(initialPage: 0);
-
     return Scaffold(
-
       backgroundColor: theme.colorScheme.background,
       body: Stack(
         children: [
@@ -61,7 +59,7 @@ class AuthPage extends StatelessWidget {
           //content
           Provider(
             create: (_) => FormStore(),
-            child: AuthForm(screen: screen, c: c, maxWidth: maxWidth),
+            child: AuthForm(screen: screen, maxWidth: maxWidth),
           )
         ],
       ),
@@ -69,43 +67,51 @@ class AuthPage extends StatelessWidget {
   }
 }
 
-class AuthForm extends StatelessWidget {
+class AuthForm extends StatefulWidget {
   const AuthForm({
     super.key,
     required this.screen,
-    required this.c,
     required this.maxWidth,
   });
 
   final Size screen;
-  final PageController c;
   final double maxWidth;
+
+  @override
+  State<AuthForm> createState() => _AuthFormState();
+}
+
+class _AuthFormState extends State<AuthForm> {
+  final ValueNotifier<double> page = ValueNotifier<double>(0);
+  final PageController controller = PageController();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: screen.height * 0.41),
+          SizedBox(height: widget.screen.height * 0.41),
           ConstrainedBox(
             constraints: const BoxConstraints(maxHeight: 168),
-            child: PageView(
-              controller: c,
-              children: [
+            child: NotifyingPageView(
+              notifier: page,
+              controller: controller,
+              pages: [
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: LoginPage(maxWidth: maxWidth)),
+                    child: LoginPage(maxWidth: widget.maxWidth)),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: RegisterPage(maxWidth: maxWidth)),
+                    child: RegisterPage(maxWidth: widget.maxWidth)),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 32),
             child: ButtonSlider(
-              maxWidth: maxWidth,
-              controller: c,
+              maxWidth: widget.maxWidth,
+              notifier: page,
+              controller: controller,
               onLogin: () {
                 context.read<AuthStore>().login((
                   pass: context.read<FormStore>().password,

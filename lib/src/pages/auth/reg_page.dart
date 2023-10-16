@@ -21,6 +21,8 @@ class RegisterPage extends StatelessWidget {
           child: TextField(
               onChanged: context.read<FormStore>().setEmail,
               decoration: const InputDecoration(hintText: 'Email'),
+              scrollPadding: const EdgeInsets.all(160),
+              keyboardType: TextInputType.emailAddress,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
@@ -32,6 +34,8 @@ class RegisterPage extends StatelessWidget {
           child: TextField(
               onChanged: context.read<FormStore>().setName,
               decoration: const InputDecoration(hintText: 'Username'),
+              scrollPadding: const EdgeInsets.all(160),
+              keyboardType: TextInputType.name,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
@@ -43,6 +47,8 @@ class RegisterPage extends StatelessWidget {
           child: TextField(
               onChanged: context.read<FormStore>().setPassword,
               decoration: const InputDecoration(hintText: 'Password'),
+              scrollPadding: const EdgeInsets.all(160),
+              keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               style: Theme.of(context)
                   .textTheme

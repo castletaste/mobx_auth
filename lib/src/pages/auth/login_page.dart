@@ -24,6 +24,7 @@ class LoginPage extends StatelessWidget {
                 onChanged: context.read<FormStore>().setName,
                 decoration: const InputDecoration(hintText: 'Username'),
                 scrollPadding: const EdgeInsets.all(160),
+                keyboardType: TextInputType.name,
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -34,6 +35,7 @@ class LoginPage extends StatelessWidget {
           child: TextField(
               onChanged: context.read<FormStore>().setPassword,
               obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
               decoration: const InputDecoration(hintText: 'Password'),
               scrollPadding: const EdgeInsets.all(160),
               style: Theme.of(context)

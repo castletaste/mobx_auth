@@ -14,9 +14,6 @@ class ThemeStore = _ThemeStore with _$ThemeStore;
 abstract class _ThemeStore with Store {
   final ThemeData _lightTheme = ThemeData.light().copyWith(
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    textButtonTheme: const TextButtonThemeData(
-        // style:
-        ),
     colorScheme: const ColorScheme.light(
       primary: Color.fromRGBO(74, 85, 167, 1),
       onPrimary: Color.fromRGBO(26, 92, 255, 1),
@@ -27,7 +24,6 @@ abstract class _ThemeStore with Store {
       error: Color.fromRGBO(225, 46, 13, 1),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(24),
         borderSide: const BorderSide(
@@ -140,12 +136,13 @@ abstract class _ThemeStore with Store {
       (currentThemeType == ThemeMode.light) ? _lightTheme : _darkTheme;
 
   @action
-  void changeCurrentTheme() => {
-        currentThemeType = (currentThemeType == ThemeMode.light)
-            ? ThemeMode.dark
-            : ThemeMode.light,
-        Storage.saveTheme(currentThemeType.name)
-      };
+  void changeCurrentTheme() {
+    print('ebeb');
+    currentThemeType = (currentThemeType == ThemeMode.light)
+        ? ThemeMode.dark
+        : ThemeMode.light;
+    Storage.saveTheme(currentThemeType.name);
+  }
 
   @action
   void restoreTheme() {

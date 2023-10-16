@@ -44,6 +44,11 @@ class AuthPage extends StatelessWidget {
               ),
             ),
           ),
+          //content
+          Provider(
+            create: (_) => FormStore(),
+            child: AuthForm(screen: screen, maxWidth: maxWidth),
+          ),
           //logo paint
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 24, top: 54),
@@ -56,11 +61,6 @@ class AuthPage extends StatelessWidget {
               ),
             ),
           ),
-          //content
-          Provider(
-            create: (_) => FormStore(),
-            child: AuthForm(screen: screen, maxWidth: maxWidth),
-          )
         ],
       ),
     );
